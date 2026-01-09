@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits", ":semanticCommitTypeAll(chore)"],
+  "packageRules": [
+    {
+      "description": "Auto-merge patch updates",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Auto-merge minor dev dependency updates",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Group BiomeJS updates",
+      "matchPackagePatterns": ["^@biomejs/"],
+      "groupName": "BiomeJS"
+    },
+    {
+      "description": "Group Vitest updates",
+      "matchPackagePatterns": ["^vitest", "^@vitest/"],
+      "groupName": "Vitest"
+    },
+    {
+      "description": "Group TypeScript updates",
+      "matchPackagePatterns": ["^typescript", "^@types/"],
+      "groupName": "TypeScript"
+    }
+  ],
+  "schedule": ["before 6am on Monday"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 5,
+  "labels": ["dependencies", "renovate"],
+  "assignees": ["@gander"],
+  "reviewers": ["@gander"],
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "rebaseWhen": "conflicted",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on Monday"]
+  }
+}
