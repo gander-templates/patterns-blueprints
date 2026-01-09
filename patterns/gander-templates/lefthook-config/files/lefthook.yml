@@ -1,0 +1,45 @@
+# Lefthook configuration for Git hooks
+# https://github.com/evilmartians/lefthook
+
+# Pre-commit hooks run before commit is created
+# All commands run in parallel for speed
+pre-commit:
+  parallel: true
+  commands:
+    # Format check with auto-fix
+    format:
+      glob: "*.{ts,js,json}"
+      run: npx biome check --write {staged_files}
+      stage_fixed: true
+
+    # Lint check with auto-fix
+    lint:
+      glob: "*.{ts,js}"
+      run: npx biome lint --write {staged_files}
+      stage_fixed: true
+
+    # Validate package-lock.json integrity
+    lockfile:
+      files: git diff --name-only --cached
+      run: |
+        if echo "{files}" | grep -q "package-lock.json"; then
+          echo "Validating package-lock.json integrity..."
+          npm install --package-lock-only --ignore-scripts
+        fi
+
+# Pre-push hooks run before push to remote
+# All commands run in parallel for speed
+pre-push:
+  parallel: true
+  commands:
+    # TypeScript type checking
+    typecheck:
+      run: npm run typecheck
+
+    # Run all unit tests
+    test:
+      run: npm test
+
+    # Build verification
+    build:
+      run: npm run build
