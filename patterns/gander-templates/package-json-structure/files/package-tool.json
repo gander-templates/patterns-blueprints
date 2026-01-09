@@ -1,0 +1,94 @@
+{
+	"name": "@gander-tools/osm-tagging-schema-mcp",
+	"version": "3.7.1",
+	"description": "MCP server for querying and validating OpenStreetMap tags",
+	"mcpName": "io.github.gander-tools/osm-tagging-schema-mcp",
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		}
+	},
+	"bin": {
+		"osm-tagging-schema-mcp": "dist/index.js"
+	},
+	"scripts": {
+		"dev": "tsx --watch src/index.ts",
+		"dev:http": "TRANSPORT=http tsx --watch src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"start:http": "TRANSPORT=http node dist/index.js",
+		"test": "node --import tsx --test tests/**/*.test.ts",
+		"test:unit": "node --import tsx --test tests/tools/**/*.test.ts tests/utils/**/*.test.ts tests/prompts/**/*.test.ts tests/index.test.ts",
+		"test:integration": "node --import tsx --test tests/integration/**/*.test.ts",
+		"test:fuzz": "node --import tsx --test tests/fuzz/**/*.fuzz.test.ts",
+		"test:watch": "node --import tsx --test --watch tests/**/*.test.ts",
+		"test:coverage": "c8 --reporter=text --reporter=lcov --reporter=html npm run test",
+		"test:coverage:unit": "c8 --reporter=text --reporter=lcov --reporter=html npm run test:unit",
+		"test:coverage:integration": "c8 --reporter=text --reporter=lcov --reporter=html npm run test:integration",
+		"test:coverage:fuzz": "c8 --reporter=text --reporter=lcov --reporter=html npm run test:fuzz",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format .",
+		"format:fix": "biome format --write .",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"check:fix:unsafe": "biome check --write --unsafe .",
+		"typecheck": "tsc --noEmit",
+		"prepare": "lefthook install",
+		"prepublishOnly": "npm run build"
+	},
+	"keywords": [
+		"mcp",
+		"model-context-protocol",
+		"openstreetmap",
+		"osm",
+		"tagging",
+		"schema",
+		"validation"
+	],
+	"author": {
+		"name": "Adam Gąsowski",
+		"url": "https://github.com/gander"
+	},
+	"license": "GPL-3.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gander-tools/osm-tagging-schema-mcp.git"
+	},
+	"bugs": {
+		"url": "https://github.com/gander-tools/osm-tagging-schema-mcp/issues"
+	},
+	"homepage": "https://github.com/gander-tools/osm-tagging-schema-mcp#readme",
+	"files": [
+		"dist/**/*",
+		"docs/**/*",
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md",
+		"CONTRIBUTING.md",
+		"SECURITY.md"
+	],
+	"dependencies": {
+		"@modelcontextprotocol/sdk": "~1.25.0",
+		"@openstreetmap/id-tagging-schema": "~6.13.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "~2.3.8",
+		"@types/node": "~24.10.1",
+		"c8": "~10.1.3",
+		"fast-check": "~4.5.0",
+		"lefthook": "~2.0.4",
+		"tsx": "~4.21.0",
+		"typescript": "~5.9.3",
+		"zod": "~4.3.0"
+	},
+	"engines": {
+		"node": "^22.0.0 || ^24.0.0",
+		"npm": "^10.0.0 || ^11.0.0"
+	}
+}
