@@ -1,0 +1,54 @@
+# Labeler configuration for automatic PR/issue labeling
+# https://github.com/actions/labeler
+
+# Documentation changes
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: ['docs/**', '*.md', 'CLAUDE.md']
+
+# Source code changes
+code:
+  - changed-files:
+      - any-glob-to-any-file: ['src/**/*.ts', 'src/**/*.js']
+
+# Test changes
+tests:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/**', '**/*.test.ts', '**/*.spec.ts']
+
+# Configuration changes
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.json'
+          - '*.yml'
+          - '*.yaml'
+          - 'tsconfig.json'
+          - 'biome.json'
+          - 'vitest.config.ts'
+          - 'tsdown.config.ts'
+          - '.npmrc'
+
+# GitHub Actions workflows
+github-actions:
+  - changed-files:
+      - any-glob-to-any-file: ['.github/workflows/**']
+
+# Dependencies
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file: ['package.json', 'package-lock.json']
+
+# Security-related
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/workflows/security-*.yml'
+          - 'SECURITY.md'
+
+# Build system
+build:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'tsdown.config.ts'
+          - 'package.json'
